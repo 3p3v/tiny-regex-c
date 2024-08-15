@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(tiny-regex-c LANGUAGES C)
 
-set(CMAKE_PREFIX_PATH "c:/libs/gmock/1.14.0-dll/") # TODO delete
+## Find path to GTest, e.g.:
+# set(CMAKE_PREFIX_PATH "/some/path/to/gtest/")
 
 add_library(${PROJECT_NAME} STATIC
     "re.c"
@@ -10,7 +11,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "/"
 )
 
-enable_testing() # TODO delete
+enable_testing()
 
 if(${BUILD_TESTING} true)
     # Set required C++ standard for GoogleTest
@@ -18,7 +19,6 @@ if(${BUILD_TESTING} true)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
     # Find GoogleTest
-    include(GoogleTest)
     find_package(GTest REQUIRED)
 
     # Find tests
