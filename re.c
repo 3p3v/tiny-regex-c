@@ -50,9 +50,9 @@ static int matchdot(char c);
 static int ismetachar(char c);
 
 /* Private function declarations, with string length parameter: */
-static int matchpatternn(regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength);
-static int matchstarn(regex_t p, regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength);
-static int matchplusn(regex_t p, regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength);
+static int matchpatternn(regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength);
+static int matchstarn(regex_t p, regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength);
+static int matchplusn(regex_t p, regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength);
 
 /* Public functions: */
 int re_match(const char* pattern, const char* text, unsigned int* matchlength)
@@ -278,13 +278,13 @@ void re_print(regex_t* pattern)
 }
 
 /* Public functions, with string length parameter: */
-int re_matchn(const char* pattern, const char* text, unsigned int textlength, unsigned int* matchlength)
+int re_matchn(const char* pattern, const char* text, size_t textlength, unsigned int* matchlength)
 {
   regex_tuple_t re_pattern;
   return re_matchpn(re_compile(pattern, &re_pattern), text, textlength, matchlength);
 }
 
-int re_matchpn(re_tuple_t re_pattern, const char* text, unsigned int textlength, unsigned int* matchlength)
+int re_matchpn(re_tuple_t re_pattern, const char* text, size_t textlength, unsigned int* matchlength)
 {
   re_t pattern = (re_t)re_pattern->pattern;
   *matchlength = 0;
@@ -555,7 +555,7 @@ static int matchpattern(regex_t* pattern, const char* text, unsigned int* matchl
 #endif
 
 /* Private functions, with string length parameter: */
-static int matchstarn(regex_t p, regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength) // TODO
+static int matchstarn(regex_t p, regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength) // TODO
 {
   unsigned int prelen = *matchlength;
   const char* prepoint = text;
@@ -576,7 +576,7 @@ static int matchstarn(regex_t p, regex_t* pattern, const char* text, unsigned in
   return 0;
 }
 
-static int matchplusn(regex_t p, regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength) // TODO
+static int matchplusn(regex_t p, regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength) // TODO
 {
   const char* prepoint = text;
   while (textlength && matchone(p, *text))
@@ -595,7 +595,7 @@ static int matchplusn(regex_t p, regex_t* pattern, const char* text, unsigned in
   return 0;
 }
 
-static int matchquestionn(regex_t p, regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength)
+static int matchquestionn(regex_t p, regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength)
 {
   if (p.type == UNUSED)
     return 1;
@@ -620,7 +620,7 @@ static int matchquestionn(regex_t p, regex_t* pattern, const char* text, unsigne
 #else
 
 /* Iterative matching */
-static int matchpatternn(regex_t* pattern, const char* text, unsigned int textlength, unsigned int* matchlength)
+static int matchpatternn(regex_t* pattern, const char* text, size_t textlength, unsigned int* matchlength)
 {
   int pre = *matchlength;
   do

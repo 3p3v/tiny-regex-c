@@ -86,11 +86,11 @@ int re_match(const char* pattern, const char* text, unsigned int* matchlength);
 
 
 /* Find matches of the compiled pattern inside text. */
-int re_matchpn(re_tuple_t re_pattern, const char* text, unsigned int textlength, unsigned int* matchlength);
+int re_matchpn(re_tuple_t re_pattern, const char* text, size_t textlength, unsigned int* matchlength);
 
 
 /* Find matches of the txt pattern inside text (will compile automatically first). */
-int re_matchn(const char* pattern, const char* text, unsigned int textlength, unsigned int* matchlength);
+int re_matchn(const char* pattern, const char* text, size_t textlength, unsigned int* matchlength);
 
 
 #ifdef __cplusplus
