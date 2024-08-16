@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(tiny-regex-c LANGUAGES C)
 
-## Find path to GTest, e.g.:
+## Specify path to GTest, e.g.:
 # set(CMAKE_PREFIX_PATH "/some/path/to/gtest/")
 
 add_library(${PROJECT_NAME} STATIC
@@ -11,7 +11,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "/"
 )
 
-enable_testing()
+## Uncomment the following line to enable tests
+# enable_testing()
 
 if(${BUILD_TESTING} true)
     # Set required C++ standard for GoogleTest
